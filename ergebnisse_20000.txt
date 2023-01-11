@@ -1,0 +1,71 @@
+(base) C:\Users\jdhau\OneDrive\Dokumente\GitHub\Logistik_Dijkstra_Speedup>C:/Users/jdhau/anaconda3/python.exe c:/Users/jdhau/OneDrive/Dokumente/GitHub/Logistik_Dijkstra_Speedup/03_Benchmark.py
+Setup beginnt...
+Setup abgeschlossen...
+Time Dijkstra ...
+Distance: 16187.009000000005
+Visited: 28840
+Distance: 16187.009000000005
+Visited: 28840
+Distance: 16187.009000000005
+Visited: 28840
+Distance: 16187.009000000005
+Visited: 28840
+Distance: 16187.009000000005
+Visited: 28840
+Time dijkstra: 140.62528808 s, standard deviation 1.8576168154341386
+Time bidirectional Dijkstra ...
+Visited Forward Search: 3595
+Visited Backwards Search: 3557
+Intersection: 21733389
+Distance: 16187.009000000002
+Visited Forward Search: 3595
+Visited Backwards Search: 3557
+Intersection: 21733389
+Distance: 16187.009000000002
+Visited Forward Search: 3595
+Visited Backwards Search: 3557
+Intersection: 21733389
+Distance: 16187.009000000002
+Visited Forward Search: 3595
+Visited Backwards Search: 3557
+Intersection: 21733389
+Distance: 16187.009000000002
+Visited Forward Search: 3595
+Visited Backwards Search: 3557
+Intersection: 21733389
+Distance: 16187.009000000002
+Time bidirectional dijkstra: 18.396478399999978 s, standard deviation 0.1870516600271696
+Time leveling Dijkstra ...
+Distance: 16187.009
+Visited: 8342
+Distance: 16187.009
+Visited: 8342
+Distance: 16187.009
+Visited: 8342
+Distance: 16187.009
+Visited: 8342
+Distance: 16187.009
+Visited: 8342
+Time leveling dijkstra: 5.398790939999981 s, standard deviation 0.11349765043788075
+Time leveling bidirectional Dijkstra ...
+Visited Forward Search: 2500
+Visited Backwards Search: 2404
+Intersection: 25379488
+Distance: 16244.786
+Visited Forward Search: 2500
+Visited Backwards Search: 2404
+Intersection: 25379488
+Distance: 16244.786
+Visited Forward Search: 2500
+Visited Backwards Search: 2404
+Intersection: 25379488
+Distance: 16244.786
+Visited Forward Search: 2500
+Visited Backwards Search: 2404
+Intersection: 25379488
+Distance: 16244.786
+Visited Forward Search: 2500
+Visited Backwards Search: 2404
+Intersection: 25379488
+Distance: 16244.786
+Time leveling bidirectional dijkstra: 1.792060760000004 s, standard deviation 0.020848511601177754
