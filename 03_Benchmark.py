@@ -33,7 +33,7 @@ def prepare_test_environment():
     dest_cords = ox.geocode("Moltkestraße 30, Karlsruhe, Deutschland")
     dest_node = ox.nearest_nodes(base_graph, dest_cords[1], dest_cords[0])
 
-    # Get Sparse Base Graph
+    ### --- Get Sparse Base Graph  --- ###
     adress = "Weingartener Straße 2, Stutensee, Deutschland"
     detail_source_graph = ox.graph_from_address(adress, dist=5000, dist_type='bbox', network_type='drive') # 10000, 20000, 50000
     adress = "Moltkestraße 30, Karlsruhe, Deutschland"
@@ -69,6 +69,17 @@ def route_bidir_dijkstra(base_graph, orig_node, dest_node):
     di_graph = ox.utils_graph.get_digraph(base_graph, weight="length")
     route, dist = bidirectional_dijkstra(di_graph, orig_node, dest_node)
 
+def route_a_star_dijkstra(base_graph, orig_node, dest_node):
+
+    di_graph = ox.utils_graph.get_digraph(base_graph, weight="length")
+    route, dist = a_star_dijkstra(di_graph, orig_node, dest_node)
+
+def route_bidir_a_star_dijkstra(base_graph, orig_node, dest_node):
+
+    di_graph = ox.utils_graph.get_digraph(base_graph, weight="length")
+    route, dist = bidirectional_a_star_dijkstra(di_graph, orig_node, dest_node)
+
+
 def route_level_dijkstra(leveling_graph, orig_node, dest_node):
 
     di_graph = ox.utils_graph.get_digraph(leveling_graph, weight="length")
@@ -78,7 +89,16 @@ def route_level_bidir_dijkstra(leveling_graph, orig_node, dest_node):
 
     di_graph = ox.utils_graph.get_digraph(leveling_graph, weight="length")
     route, dist = bidirectional_dijkstra(di_graph, orig_node, dest_node)
+
+def route_level_a_star_dijkstra(leveling_graph, orig_node, dest_node):
+
+    di_graph = ox.utils_graph.get_digraph(leveling_graph, weight="length")
+    route, dist = a_star_dijkstra(di_graph, orig_node, dest_node)
     
+def route_level_bidir_a_star_dijkstra(leveling_graph, orig_node, dest_node):
+
+    di_graph = ox.utils_graph.get_digraph(leveling_graph, weight="length")
+    route, dist = bidirectional_a_star_dijkstra(di_graph, orig_node, dest_node)
 
 def backtrace(prev, start, end):
     node = end
@@ -246,6 +266,117 @@ def bidirectional_dijkstra(graph, start, end):
     print(f"Distance: {dist_target[intersection] + dist_source[intersection]}")
     return bidirectional_backtrace(pred_node_source, pred_node_target, start, intersection, end), dist_target[intersection] + dist_source[intersection]
 
+# A-Star Dijkstra 
+def a_star_dijkstra(graph, start, end):
+
+    #Initialisierung
+    dest_point = np.array((graph.nodes[end]['y'], graph.nodes[end]['x']))
+
+    pred_node = {} 
+    dist = {v: inf for v in list(nx.nodes(graph))}
+    dist[start] = 0
+    visited = set() 
+    priority_queue = PriorityQueue()  
+    priority_queue.put((dist[start], start))
+    current_node = start
+
+    while current_node != end: 
+
+        current_node_cost, current_node = priority_queue.get()
+        visited.add(current_node)
+        for neighbor in dict(graph.adjacency()).get(current_node):
+
+            # Näherung der Luftlinie bis zu Zielknoten berechnen 
+            neighbor_point = np.array((graph.nodes[neighbor]['y'], graph.nodes[neighbor]['x']))
+            dist_to_end = np.linalg.norm(neighbor_point - dest_point)  * 100000
+
+            # Näherung der Luftlinie bei Distanzberechnung einbeziehen
+            # Knoten, die von dem Zielknoten weiter weg liegen, werden damit bestraft
+            path = dist[current_node] + graph.get_edge_data(current_node,neighbor).get('length') + dist_to_end
+
+            if path < dist[neighbor]:
+                dist[neighbor] = path
+                pred_node[neighbor] = current_node
+                if neighbor not in visited:
+                    priority_queue.put((dist[neighbor], neighbor))
+                else:
+                    remove = priority_queue.get((dist[neighbor], neighbor))
+                    priority_queue.put((dist[neighbor], neighbor))
+
+                    
+    print(f"Distance: {dist[end]}" )
+    print(f"Visited: {len(visited)}")
+    return backtrace(pred_node, start, end), dist[end]
+
+# Bidirectional A-Star Dijkstra 
+def bidirectional_a_star_dijkstra(graph, start, end):
+
+    ## Initialisierung
+    # Koordinaten des Start- und Endpunktes speichern für die Berechnung der Luftlinie
+    dest_point = np.array((graph.nodes[end]['y'], graph.nodes[end]['x']))
+    orig_point = np.array((graph.nodes[start]['y'], graph.nodes[start]['x']))
+
+    pred_node_source = {}
+    dist_source = {v: inf for v in list(nx.nodes(graph))} 
+    dist_source[start] = 0
+    visited_source = set() 
+    priority_queue_source = PriorityQueue()  
+    priority_queue_source.put((dist_source[start], start))
+
+    pred_node_target = {}
+    dist_target = {v: inf for v in list(nx.nodes(graph))} 
+    dist_target[end] = 0
+    visited_target = set() 
+    priority_queue_target = PriorityQueue()  
+    priority_queue_target.put((dist_target[end], end))
+
+    while len(visited_source.intersection(visited_target)) == 0:
+        
+        # Vorwärtssuche: Nachfolger der aktuellen Node abrufen und für jeden Nachfolger die Distanz berechnen
+        current_node_source_cost, current_source_node = priority_queue_source.get()
+        visited_source.add(current_source_node)
+        for neighbor in dict(graph.adjacency()).get(current_source_node):
+            
+            neighbor_point = np.array((graph.nodes[neighbor]['y'], graph.nodes[neighbor]['x']))
+            dist_to_end = np.linalg.norm(neighbor_point - dest_point)  * 100000
+            
+            path = dist_source[current_source_node] + graph.get_edge_data(current_source_node, neighbor).get('length') + dist_to_end
+
+            if path < dist_source[neighbor]:
+                dist_source[neighbor] = path
+                pred_node_source[neighbor] = current_source_node
+                if neighbor not in visited_source:
+                    priority_queue_source.put((dist_source[neighbor], neighbor))
+                else:
+                    _ = priority_queue_source.get((dist_source[neighbor], neighbor))
+                    priority_queue_source.put((dist_source[neighbor], neighbor))
+
+        # Rückwärtssuche: Vorgänger der aktuellen Node abrufen und für jeden Nachfolger die Distanz berechnen
+        current_node_target_cost, current_target_node = priority_queue_target.get()
+        visited_target.add(current_target_node)
+        for neighbor in graph.predecessors(current_target_node):
+            neighbor_point = np.array((graph.nodes[neighbor]['y'], graph.nodes[neighbor]['x']))
+            dist_to_end = np.linalg.norm(neighbor_point - orig_point)  * 100000
+            
+            path = dist_target[current_target_node] + graph.get_edge_data(neighbor, current_target_node).get('length')
+
+            if path < dist_target[neighbor]:
+                dist_target[neighbor] = path
+                pred_node_target[neighbor] = current_target_node
+                if neighbor not in visited_target:
+                    priority_queue_target.put((dist_target[neighbor], neighbor))
+                else:
+                    _ = priority_queue_target.get((dist_target[neighbor], neighbor))
+                    priority_queue_target.put((dist_target[neighbor], neighbor))
+
+    
+    print(f"Visited Forward Search: {len(visited_source)}")
+    print(f"Visited Backwards Search: {len(visited_target)}")
+    intersection = visited_source.intersection(visited_target).pop()
+    print(f"Intersection: {intersection}")
+    print(f"Distance: {dist_target[intersection] + dist_source[intersection]}")
+    return bidirectional_backtrace(pred_node_source, pred_node_target, start, intersection, end), dist_target[intersection] + dist_source[intersection]
+
 if __name__ == "__main__":
 
     base_graph, orig_node, dest_node, leveling_graph = prepare_test_environment()
@@ -258,6 +389,14 @@ if __name__ == "__main__":
     time_route_bidir_dijkstra = timeit.repeat("route_bidir_dijkstra(base_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
     print(f"Time bidirectional dijkstra: {mean(time_route_bidir_dijkstra)} s, standard deviation {np.std(time_route_bidir_dijkstra)}")
 
+    print("Time a-star Dijkstra ...")
+    time_route_a_star_dijkstra = timeit.repeat("route_a_star_dijkstra(base_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
+    print(f"Time a-star dijkstra: {mean(time_route_a_star_dijkstra)} s, standard deviation {np.std(time_route_a_star_dijkstra)}")
+
+    print("Time a-star bidirectional Dijkstra ...")
+    time_route_bidir_a_star_dijkstra = timeit.repeat("route_bidir_a_star_dijkstra(base_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
+    print(f"Time a-star bidirectional dijkstra: {mean(time_route_bidir_a_star_dijkstra)} s, standard deviation {np.std(time_route_bidir_a_star_dijkstra)}")
+
     print("Time leveling Dijkstra ...")
     time_route_level_dijkstra = timeit.repeat("route_level_dijkstra(leveling_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
     print(f"Time leveling dijkstra: {mean(time_route_level_dijkstra)} s, standard deviation {np.std(time_route_level_dijkstra)}")
@@ -266,4 +405,10 @@ if __name__ == "__main__":
     time_route_level_bidir_dijkstra = timeit.repeat("route_level_bidir_dijkstra(leveling_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
     print(f"Time leveling bidirectional dijkstra: {mean(time_route_level_bidir_dijkstra)} s, standard deviation {np.std(time_route_level_bidir_dijkstra)}")
 
+    print("Time leveling a-star Dijkstra ...")
+    time_route_level_a_star_dijkstra = timeit.repeat("route_level_a_star_dijkstra(leveling_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
+    print(f"Time leveling a-star dijkstra: {mean(time_route_level_a_star_dijkstra)} s, standard deviation {np.std(time_route_level_a_star_dijkstra)}")
 
+    print("Time leveling a-star bidirectional Dijkstra ...")
+    time_route_level_bidir_a_star_dijkstra = timeit.repeat("route_level_bidir_a_star_dijkstra(leveling_graph, orig_node, dest_node)", repeat=5, number=1, globals=locals())
+    print(f"Time leveling a-star bidirectional dijkstra: {mean(time_route_level_bidir_a_star_dijkstra)} s, standard deviation {np.std(time_route_level_bidir_a_star_dijkstra)}")

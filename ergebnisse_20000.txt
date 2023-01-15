@@ -1,4 +1,4 @@
-(base) C:\Users\jdhau\OneDrive\Dokumente\GitHub\Logistik_Dijkstra_Speedup>C:/Users/jdhau/anaconda3/python.exe c:/Users/jdhau/OneDrive/Dokumente/GitHub/Logistik_Dijkstra_Speedup/03_Benchmark.py
+(base) C:\Users\jdhau\OneDrive\Dokumente\GitHub\Speed-Up-Techniken_Dijkstrja-Algorithmus>C:/Users/jdhau/anaconda3/python.exe c:/Users/jdhau/OneDrive/Dokumente/GitHub/Speed-Up-Techniken_Dijkstrja-Algorithmus/03_Benchmark.py   
 Setup beginnt...
 Setup abgeschlossen...
 Time Dijkstra ...
@@ -12,7 +12,7 @@ Distance: 16187.009000000005
 Visited: 28840
 Distance: 16187.009000000005
 Visited: 28840
-Time dijkstra: 140.62528808 s, standard deviation 1.8576168154341386
+Time dijkstra: 125.71381638 s, standard deviation 5.605819939124324
 Time bidirectional Dijkstra ...
 Visited Forward Search: 3595
 Visited Backwards Search: 3557
@@ -34,19 +34,53 @@ Visited Forward Search: 3595
 Visited Backwards Search: 3557
 Intersection: 21733389
 Distance: 16187.009000000002
-Time bidirectional dijkstra: 18.396478399999978 s, standard deviation 0.1870516600271696
+Time bidirectional dijkstra: 15.252440899999987 s, standard deviation 0.15517877995628676
+Time a-star Dijkstra ...
+Distance: 350193.12802410504
+Visited: 1869
+Distance: 350193.12802410504
+Visited: 1869
+Distance: 350193.12802410504
+Visited: 1869
+Distance: 350193.12802410504
+Visited: 1869
+Distance: 350193.12802410504
+Visited: 1869
+Time a-star dijkstra: 7.911401820000014 s, standard deviation 0.0903916032813073
+Time a-star bidirectional Dijkstra ...
+Visited Forward Search: 1377
+Visited Backwards Search: 1260
+Intersection: 14959936
+Distance: 334773.6718273323
+Visited Forward Search: 1377
+Visited Backwards Search: 1260
+Intersection: 14959936
+Distance: 334773.6718273323
+Visited Forward Search: 1377
+Visited Backwards Search: 1260
+Intersection: 14959936
+Distance: 334773.6718273323
+Visited Forward Search: 1377
+Visited Backwards Search: 1260
+Intersection: 14959936
+Distance: 334773.6718273323
+Visited Forward Search: 1377
+Visited Backwards Search: 1260
+Intersection: 14959936
+Distance: 334773.6718273323
+Time a-star bidirectional dijkstra: 6.02294380000003 s, standard deviation 0.14790145364665938
 Time leveling Dijkstra ...
 Distance: 16187.009
-Visited: 8342
+Visited: 12299
 Distance: 16187.009
-Visited: 8342
+Visited: 12299
 Distance: 16187.009
-Visited: 8342
+Visited: 12299
 Distance: 16187.009
-Visited: 8342
+Visited: 12299
 Distance: 16187.009
-Visited: 8342
-Time leveling dijkstra: 5.398790939999981 s, standard deviation 0.11349765043788075
+Visited: 12299
+Time leveling dijkstra: 12.178918420000036 s, standard deviation 0.22834851929973174
 Time leveling bidirectional Dijkstra ...
 Visited Forward Search: 2500
 Visited Backwards Search: 2404
@@ -68,4 +102,37 @@ Visited Forward Search: 2500
 Visited Backwards Search: 2404
 Intersection: 25379488
 Distance: 16244.786
-Time leveling bidirectional dijkstra: 1.792060760000004 s, standard deviation 0.020848511601177754
+Time leveling bidirectional dijkstra: 2.7747439199999917 s, standard deviation 0.013929481087895254
+Time leveling a-star Dijkstra ...
+Visited: 1018
+Distance: 205892.9754932288
+Visited: 1018
+Distance: 205892.9754932288
+Visited: 1018
+Distance: 205892.9754932288
+Visited: 1018
+Distance: 205892.9754932288
+Visited: 1018
+Time leveling a-star dijkstra: 1.2293375800000148 s, standard deviation 0.009524907541445084
+Time leveling a-star bidirectional Dijkstra ...
+Visited Forward Search: 875
+Visited Backwards Search: 781
+Intersection: 1643625965
+Distance: 199358.8550433333
+Visited Forward Search: 875
+Visited Backwards Search: 781
+Intersection: 1643625965
+Distance: 199358.8550433333
+Visited Forward Search: 875
+Visited Backwards Search: 781
+Intersection: 1643625965
+Distance: 199358.8550433333
+Visited Forward Search: 875
+Visited Backwards Search: 781
+Intersection: 1643625965
+Distance: 199358.8550433333
+Visited Forward Search: 875
+Visited Backwards Search: 781
+Intersection: 1643625965
+Distance: 199358.8550433333
+Time leveling a-star bidirectional dijkstra: 1.1369636999999557 s, standard deviation 0.005907296057917727
