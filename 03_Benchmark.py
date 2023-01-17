@@ -10,10 +10,8 @@ from math import inf
 import timeit
 from statistics import mean
 import numpy as np
-# import time
 
 import osmnx as ox
-# ox.settings.log_console=True
 ox.settings.use_cache=True
 
 
