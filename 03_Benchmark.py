@@ -21,7 +21,7 @@ def prepare_test_environment():
     print("Setup beginnt...")
     # Get Base Graph
     adress = "Weingartener Straße 2, Stutensee, Deutschland"
-    base_graph = ox.graph_from_address(adress, dist=30000, dist_type='bbox', network_type='drive') # 10000, 20000, 50000
+    base_graph = ox.graph_from_address(adress, dist=20000, dist_type='bbox', network_type='drive') # 10000, 20000, 50000
 
     # Get Source Node
     orig_cords = ox.geocode("Weingartener Straße 2, Stutensee, Deutschland")
@@ -39,7 +39,7 @@ def prepare_test_environment():
     # Dict with Road-Classification
     cf =  '["highway"~"motorway|trunk|primary|secondary|tertiary|motorway_link|trunk_link|primary_link|secondary_link|tertiary_link"]'
     adress = "Weingartener Straße 2, Stutensee, Deutschland"
-    base_graph_sparse = ox.graph_from_address(adress, dist=30000, dist_type='bbox', network_type='drive', custom_filter=cf) # 10000, 20000, 50000
+    base_graph_sparse = ox.graph_from_address(adress, dist=20000, dist_type='bbox', network_type='drive', custom_filter=cf) # 10000, 20000, 50000
     base_nodes, base_edges = ox.graph_to_gdfs(base_graph_sparse, nodes=True, edges=True, node_geometry=True)
     source_nodes, source_edges = ox.graph_to_gdfs(detail_source_graph, nodes=True, edges=True, node_geometry=True) #
     target_nodes, target_edges = ox.graph_to_gdfs(detail_target_graph, nodes=True, edges=True, node_geometry=True) #

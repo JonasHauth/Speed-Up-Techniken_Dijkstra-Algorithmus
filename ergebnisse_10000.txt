@@ -12,7 +12,7 @@ Distance: 16187.009000000005
 Visited: 8001
 Distance: 16187.009000000005
 Visited: 8001
-Time dijkstra: 4.8566771000000015 s, standard deviation 0.016899875626636286
+Time dijkstra: 4.79859044 s, standard deviation 0.159153511722016
 Time bidirectional Dijkstra ...
 Visited Forward Search: 2091
 Visited Backwards Search: 2063
@@ -34,7 +34,7 @@ Visited Forward Search: 2091
 Visited Backwards Search: 2063
 Intersection: 25945716
 Distance: 17497.029000000002
-Time bidirectional dijkstra: 1.4656391799999995 s, standard deviation 0.004991180756253623
+Time bidirectional dijkstra: 1.4916661199999979 s, standard deviation 0.07622231377365442
 Time a-star Dijkstra ...
 Distance: 350193.12802410504
 Visited: 1748
@@ -46,7 +46,7 @@ Distance: 350193.12802410504
 Visited: 1748
 Distance: 350193.12802410504
 Visited: 1748
-Time a-star dijkstra: 1.1771878599999979 s, standard deviation 0.003324187274269618
+Time a-star dijkstra: 1.1735478600000022 s, standard deviation 0.026113998376163957
 Time a-star bidirectional Dijkstra ...
 Visited Forward Search: 1028
 Visited Backwards Search: 948
@@ -68,72 +68,72 @@ Visited Forward Search: 1028
 Visited Backwards Search: 948
 Intersection: 1688642565
 Distance: 312690.4906174121
-Time a-star bidirectional dijkstra: 0.853260899999998 s, standard deviation 0.03258652426098973
+Time a-star bidirectional dijkstra: 0.9240467399999943 s, standard deviation 0.07055259026611904
 Time leveling Dijkstra ...
 Distance: 16187.009
-Visited: 12299
+Visited: 6267
 Distance: 16187.009
-Visited: 12299
+Visited: 6267
 Distance: 16187.009
-Visited: 12299
+Visited: 6267
 Distance: 16187.009
-Visited: 12299
+Visited: 6267
 Distance: 16187.009
-Visited: 12299
-Time leveling dijkstra: 14.741220099999998 s, standard deviation 1.4167771552186748
+Visited: 6267
+Time leveling dijkstra: 3.1736184199999995 s, standard deviation 0.06393977977664055
 Time leveling bidirectional Dijkstra ...
-Visited Forward Search: 2500
-Visited Backwards Search: 2404
-Intersection: 25379488
+Visited Forward Search: 2498
+Visited Backwards Search: 2425
+Intersection: 25379491
 Distance: 16244.786
-Visited Forward Search: 2500
-Visited Backwards Search: 2404
-Intersection: 25379488
+Visited Forward Search: 2498
+Visited Backwards Search: 2425
+Intersection: 25379491
 Distance: 16244.786
-Visited Forward Search: 2500
-Visited Backwards Search: 2404
-Intersection: 25379488
+Visited Forward Search: 2498
+Visited Backwards Search: 2425
+Intersection: 25379491
 Distance: 16244.786
-Visited Forward Search: 2500
-Visited Backwards Search: 2404
-Intersection: 25379488
+Visited Forward Search: 2498
+Visited Backwards Search: 2425
+Intersection: 25379491
 Distance: 16244.786
-Visited Forward Search: 2500
-Visited Backwards Search: 2404
-Intersection: 25379488
+Visited Forward Search: 2498
+Visited Backwards Search: 2425
+Intersection: 25379491
 Distance: 16244.786
-Time leveling bidirectional dijkstra: 3.2190125599999986 s, standard deviation 0.04425168279491788
+Time leveling bidirectional dijkstra: 1.5415365199999969 s, standard deviation 0.042654569467356115
 Time leveling a-star Dijkstra ...
 Distance: 205892.9754932288
-Visited: 1018
+Visited: 1013
 Distance: 205892.9754932288
-Visited: 1018
+Visited: 1013
 Distance: 205892.9754932288
-Visited: 1018
+Visited: 1013
 Distance: 205892.9754932288
-Visited: 1018
+Visited: 1013
 Distance: 205892.9754932288
-Visited: 1018
-Time leveling a-star dijkstra: 1.4363872999999956 s, standard deviation 0.06317180805241887
+Visited: 1013
+Time leveling a-star dijkstra: 0.6501385000000027 s, standard deviation 0.026689643290311964
 Time leveling a-star bidirectional Dijkstra ...
-Visited Forward Search: 875
-Visited Backwards Search: 781
+Visited Forward Search: 871
+Visited Backwards Search: 786
 Intersection: 1643625965
 Distance: 199358.8550433333
-Visited Forward Search: 875
-Visited Backwards Search: 781
+Visited Forward Search: 871
+Visited Backwards Search: 786
 Intersection: 1643625965
 Distance: 199358.8550433333
-Visited Forward Search: 875
-Visited Backwards Search: 781
+Visited Forward Search: 871
+Visited Backwards Search: 786
 Intersection: 1643625965
 Distance: 199358.8550433333
-Visited Forward Search: 875
-Visited Backwards Search: 781
+Visited Forward Search: 871
+Visited Backwards Search: 786
 Intersection: 1643625965
 Distance: 199358.8550433333
-Visited Forward Search: 875
-Visited Backwards Search: 781
+Visited Forward Search: 871
+Visited Backwards Search: 786
 Intersection: 1643625965
 Distance: 199358.8550433333
-Time leveling a-star bidirectional dijkstra: 1.3057508400000075 s, standard deviation 0.0142634970735242
+Time leveling a-star bidirectional dijkstra: 0.5931219800000036 s, standard deviation 0.01109161545302094
